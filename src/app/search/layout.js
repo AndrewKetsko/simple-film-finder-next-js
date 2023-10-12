@@ -20,6 +20,7 @@ export default function SearchLayout({ children }) {
     }
     search = e.target.search.value.trim().split(" ").join("+");
     router.push(`/search?search=${search}`);
+    e.target.reset();
   };
 
   return (
