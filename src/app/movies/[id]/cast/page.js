@@ -1,27 +1,22 @@
 import Image from "next/image";
-
-async function getData(movieID) {
-  const res = await fetch(
-    `https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=cb1bcc244723619ea7f2217b5a84ccd8`
-  );
-  if (!res.ok) return {};
-  return res.json();
-}
+import styles from "@/app/app.module.css";
+import { getCast } from "@/getFunctions/getFunc";
 
 export default async function Cast({ params }) {
-  const details = await getData(params.id);
+  const details = await getCast(params.id);
   return (
-    <ul>
+    <ul className={styles.gallery}>
       {details.cast.map((actor) => (
-        <li key={actor.id}>
+        <li key={actor.id} className={styles.card}>
           <Image
             alt={actor.name}
             src={`https://image.tmdb.org/t/p/w500/${actor.profile_path}`}
             width="160"
             height="240"
+            className={styles.image}
           ></Image>
-          <p>{actor.name}</p>
-          <p>AS: {actor.character}</p>
+          <p className={styles.text}>{actor.name}</p>
+          <p className={styles.text}>AS: {actor.character}</p>
         </li>
       ))}
     </ul>

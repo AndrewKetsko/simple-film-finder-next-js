@@ -2,6 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
+import styles from "./search.module.css";
+import { BsSearch } from "react-icons/bs";
 
 export default function SearchLayout({ children }) {
   const router = useRouter();
@@ -25,11 +27,11 @@ export default function SearchLayout({ children }) {
 
   return (
     <>
-      <header>
-        <form onSubmit={submitForm}>
-          <button type="submit">
-            {/* <BsSearch></BsSearch> */}
-            <span>Search</span>
+      <header className={styles.header}>
+        <form onSubmit={submitForm} className={styles.form}>
+          <button type="submit" className={styles.button}>
+            <BsSearch style={{width:'28px', height:'28px'}}></BsSearch>
+            <span className={styles.label}>Search</span>
           </button>
 
           <input
@@ -38,6 +40,7 @@ export default function SearchLayout({ children }) {
             autoComplete="off"
             autoFocus
             placeholder="Search movie"
+            className={styles.input}
           />
         </form>
       </header>
