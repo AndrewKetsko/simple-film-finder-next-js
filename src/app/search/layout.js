@@ -4,6 +4,15 @@ import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import styles from "./search.module.css";
 import { BsSearch } from "react-icons/bs";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+
+const toastConfig = {
+  hideProgressBar: true,
+  autoClose: 2000,
+  type: "warning",
+};
 
 export default function SearchLayout({ children }) {
   const router = useRouter();
@@ -12,15 +21,16 @@ export default function SearchLayout({ children }) {
 
   const submitForm = (e) => {
     e.preventDefault();
-    if (!e.target.search.value.trim()) {
-      // toast("Enter some word to search");
+    const trimmed = e.target.search.value.trim();
+    if (!trimmed) {
+      toast("Enter some word to search", toastConfig);
       return;
     }
-    if (search === e.target.search.value.trim().split(" ").join("+")) {
-      // toast("Enter new search please");
+    if (search === trimmed.split(" ").join("+")) {
+      toast("Enter new search please", toastConfig);
       return;
     }
-    search = e.target.search.value.trim().split(" ").join("+");
+    search = trimmed.split(" ").join("+");
     router.push(`/search?search=${search}`);
     e.target.reset();
   };
@@ -30,7 +40,7 @@ export default function SearchLayout({ children }) {
       <header className={styles.header}>
         <form onSubmit={submitForm} className={styles.form}>
           <button type="submit" className={styles.button}>
-            <BsSearch style={{width:'28px', height:'28px'}}></BsSearch>
+            <BsSearch style={{ width: "28px", height: "28px" }}></BsSearch>
             <span className={styles.label}>Search</span>
           </button>
 
@@ -45,6 +55,7 @@ export default function SearchLayout({ children }) {
         </form>
       </header>
       {children}
+      <ToastContainer />
     </>
   );
 }
