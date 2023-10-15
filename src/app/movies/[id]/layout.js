@@ -18,7 +18,7 @@ export default async function FilmInfo({ children, params }) {
         <div>
           <h2 className={styles.title}>{details.title}</h2>
           <h3 className={styles.header}>
-            User score: {details.vote_average * 10}%
+            User score: {Math.round(details.vote_average * 10)}%
           </h3>
           <h3 className={styles.header}>Overview</h3>
           <p>{details.overview}</p>
