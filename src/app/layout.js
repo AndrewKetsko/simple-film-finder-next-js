@@ -14,13 +14,14 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout(props) {
   return (
     <html lang="en">
       <body className={inter.className}>
         <main className={styles.container}>
           <MainNavigation />
-          {children}
+          {props.children}
+          {props.modal}
         </main>
       </body>
     </html>
